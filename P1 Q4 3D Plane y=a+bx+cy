@@ -1,0 +1,23 @@
+write a scilab code to fit 3d plane of the form y=a+bx+cy passing through given set of values and hence estimate y at x=2, z=0.
+x=[0 1 -1 3];
+y=[6 15 17 1];
+z=[1 4 3 2];
+sx=sum(x); sy= sum(y); sz=sum(z)
+sxx=0;szz=0;szy=0;sxy=0
+for i=1:4
+    sxx= sxx+x(i)*x(i)
+    szz= szz+z(i)*z(i)
+    szx= szx+z(i)*x(i)
+    szy= szy+z(i)*y(i)
+    sxy= sxy+x(i)*y(i)
+end
+printf('sx=%g,sy=%g,sz=%g,sxx=%g,szz=%g,szx=%g,szy=%g,sxy=%g\n',sx,sy,sz,sxx,szz,szx,szy,sxy)
+n=length(x)
+A=[n sx sz; sx sxx szx; sz szx szz]
+B=[sy; sxy; szy]
+X=inv(A)*B
+printf('a=%g,b=%g,c=%g\n',X(1),X(2),X(3))
+printf('Y=%g+%gx+%gz\n',X(1),X(2),X(3))
+xest=2;zest=0
+yest=X(1)+X(2)*xest+X(3)*zest
+printf('Estimated value of y at x=%g and z=%g is %g',xest,zest,yest)
