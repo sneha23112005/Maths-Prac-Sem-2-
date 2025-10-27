@@ -1,0 +1,25 @@
+x=[10 15 20 25]; y=[1.4 2.3 3.8 4.6]
+c=1
+for i=1:3
+    d1(1)=y(i+1)-y(i)
+    c=c+1
+end
+printf('1st order forward difference ae %g,%g,%g\n',d1(1),d1(2),d1(3))
+c=1
+for i=1:2
+    d2(c)=d1(i+1)-d1(i)
+    c=c+1
+end
+printf('2nd order forward difference are %g,%g\n',d2(1),d2(2))
+c=1
+for i=1:1
+    d3(c)=d2(i+1)-d2(i)
+    c=c+1
+end
+printf('3rd order forward difference are %g\n',d3(1))
+xest=11.3
+x0=10;h=5
+u=(xest-x0)/h
+y0=1.4
+yest=y0+u*d1(1)+((u*(u-1))/factorial(2))*d2(1)+((u*(u-1)*(u-2))/factorial(3))*d3(1)
+printf('Estimated value of y at x =%g is %g',xest,yest)
