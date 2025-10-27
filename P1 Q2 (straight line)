@@ -1,0 +1,24 @@
+Write a scilab code to fit a straight line of the form x=a+by passing thriugh given set of values and hence estimate x at by=30
+x =[40 34 46 25 70];
+y =[20 22 18 17 25 10]; 
+sx = sum(x);
+sy = sum(y);
+sxy = 0;
+sxx = 0;
+n = length(x);
+for i = 1:6
+    sxy = sxy + x(i)*y(i);
+    sxx = sxx + x(i)*x(i);
+end
+printf('sx =%g,sy=%g,sxy=%g,sxx=%g\n', sx, sy, sxy, sxx);
+A =[n sy; sy syy];
+B =[sx; sxy];
+disp("A",A)
+disp("B",B)
+X= inv(A)*B;
+disp("X",X)
+printf('a=%g,b=%g\n',X(1),X(2))
+printf('x=%g+%gx\n',X(1),X(2))
+yest=30
+xest=X(1)+X(2)*yest
+printf('Estimated value at x =%g is %g\n',yest,xest)
