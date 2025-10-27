@@ -1,0 +1,24 @@
+write a scilab code to fit straight line of the form y=a+bx passing through given set of values and hence estimate y at x=2.
+x = [1.4 2.3 1.9 5.7 2.8 7.3];
+y =[8.18 7.01 7.53 2.59 6.36 0.51]; 
+sx = sum(x);
+sy = sum(y);
+sxy = 0;
+sxx = 0;
+n = length(x);
+for i = 1:6
+    sxy = sxy + x(i)*y(i);
+    sxx = sxx + x(i)*x(i);
+end
+printf('sx =%g,sy=%g,sxy=%g,sxx=%g\n', sx, sy, sxy, sxx);
+A =[n sx; sx sxx];
+B =[sy; sxy];
+disp("A",A)
+disp("B",B)
+X= inv(A)*B;
+disp("X",X)
+printf('a=%g,b=%g\n',X(1),X(2))
+printf('y=%g+%gx\n',X(1),X(2))
+xest=2
+yest=X(1)+X(2)*xest
+printf('Estimated value at x =%g is %g\n',xest,yest)
