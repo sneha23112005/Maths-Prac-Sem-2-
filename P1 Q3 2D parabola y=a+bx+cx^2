@@ -1,0 +1,30 @@
+ Write a scilab code to fit 2D equation of the form y=a+bx+cx^2 passing through given set of values and hence estimate y at x=3.4
+x = [1 2 3 4 5];
+y =[8 21 40 65 96]; 
+sx = sum(x);
+sy = sum(y);
+sxy = 0;
+sxx = 0;
+sxxx= 0;
+sxxxx= 0;
+sxxy= 0;
+n = length(x);
+for i = 1:5
+    sxy = sxy + x(i)*y(i);
+    sxx = sxx + x(i)*x(i);
+    sxxy= sxxy+ x(i)*x(i)*y(i);
+    sxxx= sxxx+ x(i)*x(i)*x(i);
+    sxxxx= sxxxx+ x(i)*x(i)*x(i)*x(i);
+end
+printf('sx =%g,sy=%g,sxy=%g,sxxy=%g,sxx=%g,sxxx=%g,sxxxx=%g\n', sx, sy, sxy, sxxy, sxx, sxxx, sxxxx);
+A =[n sx sxx; sx sxx sxxx; sxx sxxx sxxxx];
+B =[sy; sxy; sxxy];
+disp("A",A)
+disp("B",B)
+X= inv(A)*B;
+disp("X",X)
+printf('a=%g,b=%g,c=%g\n',X(1),X(2),X(3))
+printf('y=%g+%gx+%gx^2\n',X(1),X(2),X(3))
+xest=3.4
+yest=X(1)+X(2)*xest+X(3)*xest^2
+printf('Estimated value at x =%g is %g\n',xest,yest)
